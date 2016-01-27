@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/LitePreferences" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/assets" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/blame" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/bundles" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/classes" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/lint" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/res" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/intermediates/rs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/outputs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LitePreferences/build/tmp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/libs/systembartint-1.0.4.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/duanze/meizitu/utils/MeizituPrefs.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/tea_cup.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/wine_glass_angle.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/toolbar_shadow.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar_layout.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar_shadow_layout.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/xml/prefs.xml" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<prefs name="meizitu_prefs">
+    <pref>
+        <key>launch_time</key>
+        <def-value>0</def-value>
+        <description>Record the launch time,then we can decide to show a rate-dialog or not.
+            Actually,we also need the next pref 'is_rated'
+        </description>
+    </pref>
+    <pref>
+        <key>is_rated</key>
+        <def-value>false</def-value>
+    </pref>
+</prefs>

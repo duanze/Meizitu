@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Meizitu</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <string name="menu.refresh">Refresh</string>
+
+    <string name="menu.about">About</string>
+    <string name="menu.about.dialog.message">"图片来自网络，包括但不限于妹子图（www.meizitu.com），程序用于个人娱乐，严禁用于商业目的。所有图片等资源版权归原作者所有。"</string>
+    <string name="menu.about.dialog.positive">简书博客</string>
+    <string name="menu.about.dialog.negative">去看源码</string>
+    <string name="menu.about.dialog.neutral">我知道了</string>
+
+    <string name="menu.favorites">Favorites</string>
+    <string name="menu.newest">Newest</string>
+
+    <string name="dialog.rate.message">"您喜欢Meizitu吗？或者您有什么好的建议或意见？"</string>
+    <string name="dialog.rate.positive">赏你五星</string>
+    <string name="dialog.rate.negative">爷要吐槽</string>
+    <string name="dialog.rate.neutral">下次再说</string>
+    <string name="menu.snack.feeds">已切换至 最新</string>
+    <string name="menu.snack.favorites">已切换至 收藏</string>
+
+    <string name="loading.footer.loading">Loading…</string>
+    <string name="loading.footer.theEnd">TheEnd</string>
+</resources>
