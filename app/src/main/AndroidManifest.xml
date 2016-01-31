@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".MeiziActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <provider
             android:name=".data.MeiziProvider"
             android:authorities="com.duanze.meizitu.provider"

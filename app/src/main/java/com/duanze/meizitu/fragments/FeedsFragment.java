@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 
 import com.android.volley.Response;
 import com.duanze.meizitu.App;
+import com.duanze.meizitu.MeiziActivity;
 import com.duanze.meizitu.R;
 import com.duanze.meizitu.data.FeedsDataHelper;
 import com.duanze.meizitu.models.Feed;
@@ -115,6 +116,9 @@ public class FeedsFragment extends BaseFragment implements LoaderManager.LoaderC
 //                intent.putStringArrayListExtra(ImageViewActivity.IMAGE_URL, feed.getImgs());
 //                intent.putExtra(ImageViewActivity.IMAGE_ID, feed.getId());
 //                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+
+                MeiziActivity.actionStart(getActivity()
+                        , mAdapter.getItem(position - mListView.getHeaderViewsCount()));
             }
         });
 

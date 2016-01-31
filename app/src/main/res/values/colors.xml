@@ -6,6 +6,8 @@
 
     <color name="light_grey">#ffbebebe</color>
 
+    <color name="light_black">#c62a2b2a</color>
+
     <color name="material_500">#9c27b0</color>
     <color name="material_700">#7b1fa2</color>
     <color name="material_a200">#ce93d8</color>

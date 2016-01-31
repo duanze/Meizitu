@@ -28,8 +28,8 @@ public class App extends Application {
 //        initImageLoader(this);
         MeizituPrefs.initFromXml(this);
 
-//        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
-//        ImageLoader.getInstance().init(configuration);
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+        ImageLoader.getInstance().init(configuration);
     }
 
     // 初始化ImageLoader

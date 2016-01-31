@@ -12,7 +12,7 @@
     <string name="menu.about.dialog.negative">去看源码</string>
     <string name="menu.about.dialog.neutral">我知道了</string>
 
-    <string name="menu.favorites">Favorites</string>
+    <string name="menu.favorite">Favorite</string>
     <string name="menu.newest">Newest</string>
 
     <string name="dialog.rate.message">"您喜欢Meizitu吗？或者您有什么好的建议或意见？"</string>
@@ -24,4 +24,8 @@
 
     <string name="loading.footer.loading">Loading…</string>
     <string name="loading.footer.theEnd">TheEnd</string>
+
+    <string name="menu.meizi.favorite">收藏</string>
+    <string name="menu.meizi.save">保存</string>
+    <string name="activity.meizi.bottom.order">%1$d/%2$d</string>
 </resources>
