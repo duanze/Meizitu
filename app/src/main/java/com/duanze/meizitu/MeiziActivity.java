@@ -1,5 +1,8 @@
 package com.duanze.meizitu;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -43,11 +46,12 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 /**
  * Created by Sam on 14-4-15.
  */
-public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.OnPageChangeListener {
+public class MeiziActivity extends BaseActivity implements MeiziView {
     public static final String IMAGE_URL = "image_url";
     public static final String IMAGE_NAME = "image_name";
     public static final String IMAGE_ID = "image_id";
 
+    private static final long INDICATOR_DURATION = 2500;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.textView) TextView tv;
@@ -63,8 +67,10 @@ public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.O
     private boolean isFavorite;
     //    private LikesDataHelper mLikeHelper;
 //    private RequestQueue mQueue;
+
     private DisplayImageOptions options;
     private MeiziPresenter mMeiziPresenter;
+    private ObjectAnimator indicatorAnim;
 
     public static void actionStart(Context context, Feed feed) {
         Intent intent = new Intent(context, MeiziActivity.class);
@@ -93,7 +99,6 @@ public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.O
 //        isFavorite = mLikeHelper.query(mId) != null;
         setTitle(mName);
         views = new ArrayList<View>();
-        tv.setText(getString(R.string.activity_meizi_bottom_order, 1, urls.size()));
         photoViews = new ArrayList<PhotoView>();
         attachers = new ArrayList<PhotoViewAttacher>();
         progressWheels = new ArrayList<ProgressWheel>();
@@ -119,7 +124,7 @@ public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.O
 
             // Just load the first image in the beginning
             if (0 == i) {
-                loadImage(i);
+                launchFirstImage(i);
             }
             views.add(view);
         }
@@ -149,7 +154,13 @@ public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.O
 
         };
         pager.setAdapter(mPagerAdapter);
-        pager.addOnPageChangeListener(this);
+        pager.addOnPageChangeListener(mMeiziPresenter);
+    }
+
+    private void launchFirstImage(int i) {
+        tv.setText(getString(R.string.activity_meizi_indicator, 1, urls.size()));
+        loadImage(i);
+        fadeOutIndicator();
     }
 
     private void loadImage(final int i) {
@@ -229,25 +240,6 @@ public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.O
         return R.layout.activity_meizi;
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        tv.setText(getString(R.string.activity_meizi_bottom_order, position + 1, urls.size()));
-        // If the image had loaded once, skip this step
-        if (View.VISIBLE == progressWheels.get(position).getVisibility()) {
-            loadImage(position);
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
     public boolean isFavorite() {
         return isFavorite;
     }
@@ -275,6 +267,35 @@ public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.O
         return this;
     }
 
+    @Override
+    public void onPageSelected(int position) {
+        queryingData(position);
+    }
+
+    private void queryingData(int position) {
+        tv.setText(getString(R.string.activity_meizi_indicator, position + 1, urls.size()));
+        // If the image had loaded once, skip this step
+        if (View.VISIBLE == progressWheels.get(position).getVisibility()) {
+            loadImage(position);
+        }
+    }
+
+    private void fadeOutIndicator() {
+        indicatorAnim = ObjectAnimator.ofFloat(tv, "alpha", 0).setDuration(INDICATOR_DURATION);
+        indicatorAnim.start();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if (ViewPager.SCROLL_STATE_DRAGGING == state) {
+            if (indicatorAnim.isRunning()) {
+                indicatorAnim.cancel();
+            }
+            tv.setAlpha(1);
+        } else if (ViewPager.SCROLL_STATE_IDLE == state) {
+            fadeOutIndicator();
+        }
+    }
 
     private void savePicture() {
         if (pager == null || photoViews == null) {

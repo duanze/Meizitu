@@ -2,19 +2,18 @@ package com.duanze.meizitu.mvp.presenters.impl;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.duanze.meizitu.R;
-import com.duanze.meizitu.models.Feed;
 import com.duanze.meizitu.mvp.presenters.IPresenter;
 import com.duanze.meizitu.mvp.views.exte.MeiziView;
 
 /**
  * Created by duanze on 16-2-1.
  */
-public class MeiziPresenter implements IPresenter {
+public class MeiziPresenter implements IPresenter,ViewPager.OnPageChangeListener {
     private MeiziView mMeiziView;
     private Activity mActivity;
 
@@ -87,5 +86,19 @@ public class MeiziPresenter implements IPresenter {
 
     private void favoriteOrNot() {
         mMeiziView.favoriteOrNot();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mMeiziView.onPageSelected(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        mMeiziView.onPageScrollStateChanged(state);
     }
 }

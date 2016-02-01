@@ -48,7 +48,8 @@ public class RateAppUtil {
         intent.putExtra(Intent.EXTRA_SUBJECT, "Meizitu用户反馈" + " Version:" + RateAppUtil.getVersionName(activity));
         // 主题
         intent.putExtra(Intent.EXTRA_TEXT, "Manufacturer:" + Build.MANUFACTURER +
-                " - Device name: " + Build.MODEL + " - SDK Version: " + Build.VERSION.SDK_INT + "  "); // 正文
+                " - Device name: " + Build.MODEL + " - SDK Version: " + Build.VERSION.SDK_INT
+                + " - Channel:" + getChannel(activity) + "  "); // 正文
         activity.startActivity(Intent.createChooser(intent, "Select email client"));
     }
 

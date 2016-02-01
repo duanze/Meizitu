@@ -12,4 +12,6 @@ public interface MeiziView extends IView {
     boolean isFavorite();
     void favoriteOrNot();
     Activity getActivity();
+    void onPageSelected(int position);
+    void onPageScrollStateChanged(int state);
 }

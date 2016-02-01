@@ -29,5 +29,5 @@
     <string name="menu.meizi.favorite.true">已收藏</string>
     <string name="menu.meizi.favorite.false">取消收藏</string>
     <string name="menu.meizi.save">保存</string>
-    <string name="activity.meizi.bottom.order">%1$d/%2$d</string>
+    <string name="activity.meizi.indicator">%1$d/%2$d</string>
 </resources>

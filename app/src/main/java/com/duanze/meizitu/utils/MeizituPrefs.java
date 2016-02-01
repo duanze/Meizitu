@@ -17,7 +17,7 @@ public class MeizituPrefs extends BaseLitePrefs {
     public static final String PREFS_NAME = "meizitu_prefs";
     public static final String LAUNCH_TIME = "launch_time";
     public static final String IS_RATED = "is_rated";
-    public static final int RATE_THRESHOLD = 3;
+    public static final int RATE_THRESHOLD = 13;
 
     public static void initFromXml(Context context) {
         try {
