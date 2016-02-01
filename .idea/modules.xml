@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LitePreferences/LitePreferences.iml" filepath="$PROJECT_DIR$/LitePreferences/LitePreferences.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Meizitu2.iml" filepath="$PROJECT_DIR$/Meizitu2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Meizi.iml" filepath="$PROJECT_DIR$/Meizi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

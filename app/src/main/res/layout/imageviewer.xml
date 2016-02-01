@@ -15,6 +15,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
         ProgressWheel:barColor="#fff0f4e2"
         ProgressWheel:barWidth="4dp"
         ProgressWheel:rimColor="#44000000"

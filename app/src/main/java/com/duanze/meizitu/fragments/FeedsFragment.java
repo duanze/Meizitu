@@ -122,8 +122,11 @@ public class FeedsFragment extends BaseFragment implements LoaderManager.LoaderC
             }
         });
 
+        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeResources(R.color.material_700, R.color.material_500);
     }
 
     private String getRefreshUrl() {

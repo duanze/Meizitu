@@ -1,5 +1,6 @@
 package com.duanze.meizitu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,12 +15,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.duanze.meizitu.models.Feed;
 import com.duanze.meizitu.mvp.presenters.IPresenter;
+import com.duanze.meizitu.mvp.presenters.impl.MeiziPresenter;
+import com.duanze.meizitu.mvp.views.exte.MeiziView;
 import com.duanze.meizitu.views.widgets.ProgressWheel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -37,7 +43,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 /**
  * Created by Sam on 14-4-15.
  */
-public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class MeiziActivity extends BaseActivity implements MeiziView,ViewPager.OnPageChangeListener {
     public static final String IMAGE_URL = "image_url";
     public static final String IMAGE_NAME = "image_name";
     public static final String IMAGE_ID = "image_id";
@@ -54,10 +60,11 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
     private ArrayList<View> views;
     private String mName;
     private int mId;
-    private boolean mIsFavd;
+    private boolean isFavorite;
     //    private LikesDataHelper mLikeHelper;
 //    private RequestQueue mQueue;
     private DisplayImageOptions options;
+    private MeiziPresenter mMeiziPresenter;
 
     public static void actionStart(Context context, Feed feed) {
         Intent intent = new Intent(context, MeiziActivity.class);
@@ -71,6 +78,7 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
     }
 
     public void onCreate(Bundle savedInstanceState) {
+        mMeiziPresenter = new MeiziPresenter(this);
         super.onCreate(savedInstanceState);
         init();
     }
@@ -82,7 +90,7 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
         if (!parseIntent()) return;
 
 //        mLikeHelper = new LikesDataHelper(this);
-//        mIsFavd = mLikeHelper.query(mId) != null;
+//        isFavorite = mLikeHelper.query(mId) != null;
         setTitle(mName);
         views = new ArrayList<View>();
         tv.setText(getString(R.string.activity_meizi_bottom_order, 1, urls.size()));
@@ -179,33 +187,20 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_meizi, menu);
-
+        mMeiziPresenter.onCreateOptionsMenu(menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.action_favorite);
-        if (mIsFavd) {
-            item.setIcon(R.drawable.ic_favorite_white);
-        } else {
-            item.setIcon(R.drawable.ic_favorite_outline);
-        }
+        mMeiziPresenter.onPrepareOptionsMenu(menu);
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.action_favorite:
-//                doFav();
-                return true;
-            case R.id.action_save:
-//                savePicture();
-                return true;
+        if (mMeiziPresenter.onOptionsItemSelected(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -226,7 +221,7 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
 
     @Override
     protected IPresenter getIPresenter() {
-        return null;
+        return mMeiziPresenter;
     }
 
     @Override
@@ -242,7 +237,10 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
     @Override
     public void onPageSelected(int position) {
         tv.setText(getString(R.string.activity_meizi_bottom_order, position + 1, urls.size()));
-        loadImage(position);
+        // If the image had loaded once, skip this step
+        if (View.VISIBLE == progressWheels.get(position).getVisibility()) {
+            loadImage(position);
+        }
     }
 
     @Override
@@ -250,22 +248,33 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
 
     }
 
-    private void doFav() {
-        if (mIsFavd) {
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    @Override
+    public void favoriteOrNot() {
+        if (isFavorite) {
 //            mLikeHelper.delete(mId);
+            Toast.makeText(this, getString(R.string.menu_meizi_favorite_false), Toast.LENGTH_SHORT).show();
         } else {
             Feed feed = new Feed();
             feed.setImgs(urls);
             feed.setName(mName);
             feed.setId(mId);
+            Toast.makeText(this, getString(R.string.menu_meizi_favorite_true), Toast.LENGTH_SHORT).show();
 
 //            mLikeHelper.insert(feed);
         }
-        mIsFavd = !mIsFavd;
-
+        isFavorite = !isFavorite;
         invalidateOptionsMenu();
-
     }
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
 
     private void savePicture() {
         if (pager == null || photoViews == null) {
@@ -274,27 +283,27 @@ public class MeiziActivity extends BaseActivity implements ViewPager.OnPageChang
 
         int now = pager.getCurrentItem();
         //photoViews.get(now).getDrawingCache();
-//        ImageLoader.getInstance().loadImage(urls.get(now), new ImageLoadingListener() {
-//            @Override
-//            public void onLoadingStarted(String s, View view) {
-//
-//            }
-//
-//            @Override
-//            public void onLoadingFailed(String s, View view, FailReason failReason) {
-//
-//            }
-//
-//            @Override
-//            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//                writeImgToFile(bitmap);
-//            }
-//
-//            @Override
-//            public void onLoadingCancelled(String s, View view) {
-//
-//            }
-//        });
+        ImageLoader.getInstance().loadImage(urls.get(now), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                writeImgToFile(bitmap);
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        });
 
     }
 
