@@ -138,8 +138,8 @@ public class FeedsFragment extends BaseFragment implements LoaderManager.LoaderC
     }
 
     private void loadNextData() {
-        if (!mSwipeLayout.isRefreshing()) {
-            mSwipeLayout.setRefreshing(true);
+        if (mSwipeLayout.isRefreshing()) {
+            mSwipeLayout.setRefreshing(false);
         }
         executeRequest(new GsonRequest(getNextUrl()
                 , Feed.FeedRequestData.class

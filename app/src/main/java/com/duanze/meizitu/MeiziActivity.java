@@ -1,7 +1,5 @@
 package com.duanze.meizitu;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
@@ -42,16 +40,12 @@ import butterknife.Bind;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-
-/**
- * Created by Sam on 14-4-15.
- */
 public class MeiziActivity extends BaseActivity implements MeiziView {
     public static final String IMAGE_URL = "image_url";
     public static final String IMAGE_NAME = "image_name";
     public static final String IMAGE_ID = "image_id";
 
-    private static final long INDICATOR_DURATION = 2500;
+    private static final long INDICATOR_DURATION = 1200;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.textView) TextView tv;

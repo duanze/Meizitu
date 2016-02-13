@@ -19,5 +19,7 @@
         android:paddingRight="15dip"
         android:scrollbarStyle="outsideOverlay"
         android:scrollingCache="true"
-        android:smoothScrollbar="true"/>
+        android:smoothScrollbar="true"
+        android:fastScrollEnabled="true"
+        />
 </android.support.v4.widget.SwipeRefreshLayout>
